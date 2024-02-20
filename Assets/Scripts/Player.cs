@@ -10,10 +10,14 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     public GameObject panelEndGame;
     public Rigidbody2D rigidbody2D;
+    public AudioSource audio_game;
+    public AudioSource audio_death;
     
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        audio_game.Play();
+        FPS();
     }
     public void Jump()
     {
@@ -38,6 +42,8 @@ public class Player : MonoBehaviour
     {
         if (collider2D.CompareTag("obstacles")) {
             Debug.Log("Va Vao Lua");
+            audio_game.Stop();
+            audio_death.Play();
             panelEndGame.SetActive(true);
         }
     }
@@ -46,5 +52,9 @@ public class Player : MonoBehaviour
     void Update()
     {
 
+    }
+    private void FPS ()
+    {
+        Application.targetFrameRate =  30;
     }
 }
